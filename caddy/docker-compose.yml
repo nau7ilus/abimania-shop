@@ -15,11 +15,12 @@ services:
       - $PWD/caddy/logs:/var/log/caddy
     networks:
       - web
-      - internal
       - monitoring
     environment:
       - EMAIL=${CADDY_EMAIL}
       - BASE_DOMAIN=${CADDY_BASE_DOMAIN}
+      - GF_SUBDOMAIN=${GF_SUBDOMAIN}
+      - HEDGEDOC_SUBDOMAIN=${HEDGEDOC_SUBDOMAIN}
 
   promtail:
     image: grafana/promtail

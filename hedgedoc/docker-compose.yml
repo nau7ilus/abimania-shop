@@ -1,0 +1,57 @@
+services:
+  hedgedoc:
+    image: quay.io/hedgedoc/hedgedoc:latest
+    container_name: hedgedoc
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - CMD_DOMAIN=${HEDGEDOC_SUBDOMAIN}.${CADDY_BASE_DOMAIN}
+      - CMD_PORT=${HEDGEDOC_PORT}
+      - CMD_DB_URL=postgres://${HEDGEDOC_DB_USER}:${HEDGEDOC_DB_PASSWORD}@hedgedoc_db:5432/${HEDGEDOC_DB_NAME}
+      - CMD_URL_ADDPORT=false
+      - CMD_CSP_ENABLE=false
+      - CMD_PROTOCOL_USESSL=true
+      - CMD_LOGLEVEL=warn
+
+      # Benutzer und Berechtigungen
+      - CMD_DEFAULT_PERMISSION=private
+      - CMD_ALLOW_ANONYMOUS=false
+      - CMD_ALLOW_ANONYMOUS_EDITS=false
+      - CMD_ALLOW_EMAIL_REGISTER=false
+      - CMD_ALLOW_GRAVATAR=false
+      - CMD_ALLOW_FREEURL=true
+
+      # OAuth2
+      - CMD_OAUTH2_USER_PROFILE_URL=https://${PRETIX_SUBDOMAIN}.${CADDY_BASE_DOMAIN}/api/v1/me
+      - CMD_OAUTH2_TOKEN_URL=https://${PRETIX_SUBDOMAIN}.${CADDY_BASE_DOMAIN}/api/v1/oauth/token
+      - CMD_OAUTH2_AUTHORIZATION_URL=https://${PRETIX_SUBDOMAIN}.${CADDY_BASE_DOMAIN}/api/v1/oauth/authorize
+      - CMD_OAUTH2_USER_PROFILE_USERNAME_ATTR=email
+      - CMD_OAUTH2_USER_PROFILE_DISPLAY_NAME_ATTR=fullname
+      - CMD_OAUTH2_USER_PROFILE_EMAIL_ATTR=email
+      - CMD_OAUTH2_USER_PROFILE_ID_ATTR=email
+      - CMD_OAUTH2_CLIENT_ID=${HEDGEDOC_OAUTH2_CLIENT_ID}
+      - CMD_OAUTH2_CLIENT_SECRET=${HEDGEDOC_OAUTH2_CLIENT_SECRET}
+      - CMD_OAUTH2_SCOPE=profile
+      - CMD_OAUTH2_PROVIDERNAME=${HEDGEDOC_OAUTH2_PROVIDERNAME}
+    depends_on:
+      - hedgedoc_db
+    networks:
+      - hedgedoc
+      - web
+
+  hedgedoc_db:
+    image: postgres:17
+    container_name: hedgedoc_db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${HEDGEDOC_DB_NAME}
+      - POSTGRES_USER=${HEDGEDOC_DB_USER}
+      - POSTGRES_PASSWORD=${HEDGEDOC_DB_PASSWORD}
+    volumes:
+      - $PWD/hedgedoc/database:/var/lib/postgresql/data
+    networks:
+      - hedgedoc
+
+networks:
+  hedgedoc:
+    external: false
