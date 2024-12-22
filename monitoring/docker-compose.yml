@@ -1,0 +1,54 @@
+services:
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    hostname: loki
+    user: root
+    volumes:
+      - $PWD/monitoring/config/loki:/etc/loki
+    ports:
+      - 3100:3100
+    restart: unless-stopped
+    command: -config.file=/etc/loki/loki-config.yml
+    networks:
+      - monitoring
+    labels:
+      org.label-schema.group: monitoring
+
+  # promtail:
+  #   image: grafana/promtail:latest
+  #   container_name: promtail
+  #   volumes:
+  #     - $PWD/monitoring/config/promtail/promtail-config.yml:/etc/promtail/promtail-config.yml
+  #     - /var/lib/docker/containers:/var/lib/docker/containers:ro
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   depends_on:
+  #     - loki
+  #   restart: unless-stopped
+  #   command: -config.file=/etc/promtail/promtail-config.yml
+  #   networks:
+  #     - monitoring
+  #   labels:
+  #     org.label-schema.group: "monitoring"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    user: root
+    volumes:
+      - $PWD/monitoring/data/grafana:/var/lib/grafana
+      - $PWD/monitoring/config/grafana/datasources/grafana.yml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - $PWD/monitoring/config/grafana/plugins/app.yml:/etc/grafana/provisioning/plugins/app.yaml
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_FEATURE_TOGGLES_ENABLE=accessControlOnCall lokiLogsDataplane
+      - GF_INSTALL_PLUGINS=https://storage.googleapis.com/integration-artifacts/grafana-lokiexplore-app/grafana-lokiexplore-app-latest.zip;grafana-lokiexplore-app
+    networks:
+      - monitoring
+    labels:
+      org.label-schema.group: "monitoring"
