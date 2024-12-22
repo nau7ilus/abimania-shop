@@ -15,5 +15,8 @@ services:
   hedgedoc-db:
     *logging
   
+  pretix:
+   *logging
+
   grafana:
     *logging
