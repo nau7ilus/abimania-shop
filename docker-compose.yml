@@ -2,10 +2,9 @@ include:
   - ./caddy/docker-compose.yml
   - ./grafana/docker-compose.yml
   - ./loki/docker-compose.yml
-  
+  - ./hedgedoc/docker-compose.yml
+
 networks:
-  internal:
-    external: false
   web:
     external: false
   monitoring:
