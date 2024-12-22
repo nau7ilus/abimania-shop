@@ -28,9 +28,6 @@ down: ## Stops and removes all containers
 logs: ## View the logs from the containers
 	$(DOCKER_COMPOSE) logs -f
 
-open: ## Opens website
-	open http://localhost:3000/
-
 clean:
 	$(DOCKER) system prune -aF
 	$(DOCKER) volume prune -f
