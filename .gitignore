@@ -1,0 +1,8 @@
+.env
+caddy/certs/*.pem
+caddy/config/autosave.json
+caddy/data/
+
+monitoring/data/
+
+musor/
