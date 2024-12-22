@@ -15,8 +15,5 @@ services:
   hedgedoc-db:
     *logging
   
-  loki:
-    *logging
   grafana:
     *logging
-  
