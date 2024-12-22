@@ -1,4 +1,6 @@
 x-logging: &logging
+  depends_on:
+    - loki
   logging:
     driver: loki
     options:
