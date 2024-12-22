@@ -83,3 +83,6 @@ install-ssl-certificates: ## Installiere lokale SSL-Zertifikate
 
 rm-all:
 	docker rm -f $(shell docker ps -a -q)
+
+update-submodules:
+	git submodule foreach git pull origin main

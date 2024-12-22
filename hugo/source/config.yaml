@@ -1,0 +1,14 @@
+baseURL: http://localhost # Replace with your domain
+languageCode: de-de
+theme: smigle
+title: Abimania 2025
+
+params:
+  abbrDateFmt: "Jan 2"
+  author: "Brandmauerbrecher (Schul-AG)"
+  brandIconFile: "images/brandIcon.svg"
+  dateFmt: "2006-01-02"
+  #customStylesheets: # Use to override theme styles, like logo size
+  #  - "css/custom.css"
+  subtitle: "Description about Blog Author"
+

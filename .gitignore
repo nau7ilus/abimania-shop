@@ -14,4 +14,7 @@ pretix/config/pretix.cfg
 pretix/data/
 pretix/database/
 
+.hugo_build.lock
+hugo/source/public/
+
 musor/
