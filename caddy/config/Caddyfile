@@ -1,0 +1,27 @@
+{
+    email {$EMAIL}
+}
+
+# Snippet für Entwicklungsumgebung
+# Wird benutzt, wenn die Umgebungsvariable TLS_CONFIG="import dev_ssl_certs"
+(dev_ssl_certs) {
+    tls "/data/certs/local.cert.pem" "/data/certs/local.key.pem"
+}
+
+(log_common) {
+  log {
+    output file /var/log/caddy/caddy_access.log
+  }
+}
+
+{$BASE_DOMAIN} {
+    {$TLS_CONFIG}
+    import log_common
+    respond "Hello, world!"
+}
+
+grafana.{$BASE_DOMAIN} {
+    {$TLS_CONFIG}
+    import log_common
+   reverse_proxy grafana:3000
+}

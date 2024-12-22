@@ -1,0 +1,34 @@
+services:
+  caddy:
+    image: caddy:latest
+    user: ${MY_UID}:${MY_GID}
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - $PWD/caddy/config:/config/caddy
+      - $PWD/caddy/config/Caddyfile:/etc/caddy/Caddyfile
+      - $PWD/caddy/certs:/data/certs
+      - $PWD/caddy/data:/data/caddy
+      - $PWD/caddy/logs:/var/log/caddy
+    networks:
+      - web
+      - internal
+    environment:
+      - EMAIL=${CADDY_EMAIL}
+      - BASE_DOMAIN=${CADDY_BASE_DOMAIN}
+
+  promtail:
+    image: grafana/promtail
+    container_name: caddy-promtail
+    hostname: caddy-promtail
+    restart: unless-stopped
+    networks:
+      - monitoring
+    volumes:
+      - $PWD/monitoring/config/promtail/promtail-config.yml:/etc/promtail-config.yml
+      - $PWD/caddy/logs:/var/log/caddy:ro
+    command:
+      - '-config.file=/etc/promtail-config.yml'
