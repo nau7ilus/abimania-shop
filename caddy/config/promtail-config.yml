@@ -1,0 +1,13 @@
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: caddy_access_log
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: caddy_access_log
+          host: ${BASE_DOMAIN}
+          agent: caddy-promtail
+          __path__: /var/log/caddy/*.log

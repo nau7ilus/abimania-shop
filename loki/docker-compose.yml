@@ -1,0 +1,16 @@
+services:
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    hostname: loki
+    user: root
+    volumes:
+      - $PWD/loki:/etc/loki
+    ports:
+      - 3100:3100
+    restart: unless-stopped
+    command: -config.file=/etc/loki/loki-config.yml
+    networks:
+      - monitoring
+    labels:
+      org.label-schema.group: monitoring

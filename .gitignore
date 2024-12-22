@@ -1,9 +1,10 @@
 .env
+
 caddy/certs/*.pem
 caddy/config/autosave.json
 caddy/data/
 caddy/logs/
 
-monitoring/data/
+grafana/data/
 
 musor/

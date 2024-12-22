@@ -16,6 +16,7 @@ services:
     networks:
       - web
       - internal
+      - monitoring
     environment:
       - EMAIL=${CADDY_EMAIL}
       - BASE_DOMAIN=${CADDY_BASE_DOMAIN}
@@ -28,7 +29,8 @@ services:
     networks:
       - monitoring
     volumes:
-      - $PWD/monitoring/config/promtail/promtail-config.yml:/etc/promtail-config.yml
+      - $PWD/caddy/config/promtail-config.yml:/etc/promtail-config.yml
       - $PWD/caddy/logs:/var/log/caddy:ro
     command:
       - '-config.file=/etc/promtail-config.yml'
+      - '-config.expand-env=true'
