@@ -1,7 +1,6 @@
 services:
   caddy:
     image: caddy:latest
-    user: ${MY_UID}:${MY_GID}
     container_name: caddy
     restart: unless-stopped
     ports:
@@ -9,7 +8,7 @@ services:
       - "443:443"
     volumes:
       - $PWD/caddy/config:/config/caddy
-      - $PWD/caddy/config/Caddyfile:/etc/caddy/Caddyfile
+      - $PWD/caddy/Caddyfile:/etc/caddy/Caddyfile
       - $PWD/caddy/certs:/data/certs
       - $PWD/caddy/data:/data/caddy
       - $PWD/caddy/logs:/var/log/caddy
@@ -21,6 +20,7 @@ services:
       - BASE_DOMAIN=${CADDY_BASE_DOMAIN}
       - GF_SUBDOMAIN=${GF_SUBDOMAIN}
       - HEDGEDOC_SUBDOMAIN=${HEDGEDOC_SUBDOMAIN}
+      - PRETIX_SUBDOMAIN=${PRETIX_SUBDOMAIN}
 
   caddy-promtail:
     image: grafana/promtail
@@ -30,7 +30,7 @@ services:
     networks:
       - monitoring
     volumes:
-      - $PWD/caddy/config/promtail-config.yml:/etc/promtail-config.yml
+      - $PWD/caddy/promtail-config.yml:/etc/promtail-config.yml
       - $PWD/caddy/logs:/var/log/caddy:ro
     command:
       - '-config.file=/etc/promtail-config.yml'
