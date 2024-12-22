@@ -20,8 +20,9 @@
     respond "Hello, world!"
 }
 
-grafana.{$BASE_DOMAIN} {
+{$GF_SUBDOMAIN}.{$BASE_DOMAIN} {
     {$TLS_CONFIG}
     import log_common
-   reverse_proxy grafana:3000
+    reverse_proxy grafana:3000
+}
 }
