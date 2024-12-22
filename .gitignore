@@ -5,6 +5,13 @@ caddy/config/autosave.json
 caddy/data/
 caddy/logs/
 
+hedgedoc/database/
+hedgedoc/logs/
+
 grafana/data/
+
+pretix/config/pretix.cfg
+pretix/data/
+pretix/database/
 
 musor/

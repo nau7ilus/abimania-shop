@@ -3,6 +3,7 @@ include:
   - ./grafana/docker-compose.yml
   - ./loki/docker-compose.yml
   - ./hedgedoc/docker-compose.yml
+  - ./pretix/docker-compose.yml
 
 networks:
   web:

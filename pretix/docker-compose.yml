@@ -1,0 +1,39 @@
+services:
+  pretix:
+    image: pretix/standalone:stable
+    container_name: pretix
+    restart: unless-stopped
+    depends_on:
+      - caddy
+      - pretix-db
+      - pretix-redis
+    volumes:
+      - $PWD/pretix/data:/data
+      - $PWD/pretix/config:/etc/pretix
+    networks:
+      - pretix
+      - web
+  
+  pretix-db:
+    image: postgres:17
+    container_name: pretix-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${PRETIX_DB_NAME}
+      - POSTGRES_USER=${PRETIX_DB_USER}
+      - POSTGRES_PASSWORD=${PRETIX_DB_PASSWORD}
+    volumes:
+      - $PWD/pretix/database:/var/lib/postgresql/data
+    networks:
+      - pretix
+
+  pretix-redis:
+    image: redis:latest
+    container_name: pretix-redis
+    restart: unless-stopped
+    networks:
+      - pretix
+
+networks:
+  pretix:
+    external: false
