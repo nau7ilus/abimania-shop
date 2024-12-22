@@ -7,12 +7,11 @@ services:
       - NODE_ENV=production
       - CMD_DOMAIN=${HEDGEDOC_SUBDOMAIN}.${CADDY_BASE_DOMAIN}
       - CMD_PORT=${HEDGEDOC_PORT}
-      - CMD_DB_URL=postgres://${HEDGEDOC_DB_USER}:${HEDGEDOC_DB_PASSWORD}@hedgedoc_db:5432/${HEDGEDOC_DB_NAME}
+      - CMD_DB_URL=postgres://${HEDGEDOC_DB_USER}:${HEDGEDOC_DB_PASSWORD}@hedgedoc-db:5432/${HEDGEDOC_DB_NAME}
       - CMD_URL_ADDPORT=false
       - CMD_CSP_ENABLE=false
       - CMD_PROTOCOL_USESSL=true
-      - CMD_LOGLEVEL=warn
-
+      
       # Benutzer und Berechtigungen
       - CMD_DEFAULT_PERMISSION=private
       - CMD_ALLOW_ANONYMOUS=false
@@ -34,14 +33,14 @@ services:
       - CMD_OAUTH2_SCOPE=profile
       - CMD_OAUTH2_PROVIDERNAME=${HEDGEDOC_OAUTH2_PROVIDERNAME}
     depends_on:
-      - hedgedoc_db
+      - hedgedoc-db
     networks:
       - hedgedoc
       - web
 
-  hedgedoc_db:
+  hedgedoc-db:
     image: postgres:17
-    container_name: hedgedoc_db
+    container_name: hedgedoc-db
     restart: unless-stopped
     environment:
       - POSTGRES_DB=${HEDGEDOC_DB_NAME}

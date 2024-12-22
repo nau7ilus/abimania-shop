@@ -22,7 +22,7 @@ services:
       - GF_SUBDOMAIN=${GF_SUBDOMAIN}
       - HEDGEDOC_SUBDOMAIN=${HEDGEDOC_SUBDOMAIN}
 
-  promtail:
+  caddy-promtail:
     image: grafana/promtail
     container_name: caddy-promtail
     hostname: caddy-promtail

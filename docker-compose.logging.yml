@@ -1,18 +1,22 @@
-x-logging:
-  &default-logging
-  driver: "json-file"
-  options:
-    max-size: "1m"
-    max-file: "1"
-    tag: "{{.Name}}"
+x-logging: &logging
+  logging:
+    driver: loki
+    options:
+      loki-url: "http://127.0.0.1:3100/loki/api/v1/push"
 
 services:
   caddy:
-    logging: *default-logging
-  # loki:
-  #   logging: *default-logging
-  # promtail:
-  #   logging: *default-logging
-  # grafana:
-  #   logging: *default-logging
+    *logging
+  caddy-promtail:
+    *logging
+
+  hedgedoc:
+    *logging
+  hedgedoc-db:
+    *logging
+  
+  loki:
+    *logging
+  grafana:
+    *logging
   
