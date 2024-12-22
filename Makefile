@@ -36,9 +36,7 @@ $(PWD)/pretix/config/%.cfg: $(PWD)/pretix/config/%.template.cfg $(ENV_FILE)
 dev: check-loki-socket $(CFG_FILES) ## Starte die Entwicklungsumgebung
 	MY_UID="$(shell id -u)" MY_GID="$(shell id -g)" \
 	$(DOCKER_COMPOSE) --env-file $(ENV_FILE) \
-		-f ./docker-compose.yml \
-		-f docker-compose.dev.yml \
-		-f docker-compose.logging.yml up
+		-f docker-compose.dev.yml up
 
 down: ## Stoppe und entferne alle Container
 	$(DOCKER_COMPOSE) down

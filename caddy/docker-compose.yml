@@ -21,6 +21,7 @@ services:
       - GF_SUBDOMAIN=${GF_SUBDOMAIN}
       - HEDGEDOC_SUBDOMAIN=${HEDGEDOC_SUBDOMAIN}
       - PRETIX_SUBDOMAIN=${PRETIX_SUBDOMAIN}
+      - TLS_CONFIG=${CADDY_TLS_CONFIG}
 
   caddy-promtail:
     image: grafana/promtail
