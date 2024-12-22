@@ -1,0 +1,11 @@
+include:
+  - ./caddy/docker-compose.yml
+  - ./monitoring/docker-compose.yml
+  
+networks:
+  internal:
+    external: false
+  web:
+    external: false
+  monitoring:
+    external: false

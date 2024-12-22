@@ -1,0 +1,42 @@
+services:
+  caddy:
+    environment:
+      - TLS_CONFIG=import dev_ssl_certs
+
+  # grafana:
+  #   environment:
+  #     - GF_SECURITY_ADMIN_PASSWORD=admin
+  #     - GF_SERVER_ROOT_URL=http://grafana.localhost
+  #     - GF_SERVER_SERVE_FROM_SUB_PATH=true
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - grafana_data:/var/lib/grafana
+  #     - ./logs/grafana:/var/log/grafana
+  #   networks:
+  #     - internal
+
+  # loki:
+  #   ports:
+  #     - "3100:3100"
+  #   volumes:
+  #     - loki_data:/loki
+  #     - ./logs/loki:/var/log/loki
+  #   networks:
+  #     - internal
+
+  # pretix:
+  #   ports:
+  #     - "8000:8000" 
+  #   volumes:
+  #     - ./logs/pretix:/var/log/pretix
+  #   networks:
+  #     - internal
+
+  # hedgedoc:
+  #   ports:
+  #     - "3030:3000"
+  #   volumes:
+  #     - ./logs/hedgedoc:/var/log/hedgedoc
+  #   networks:
+  #     - internal
