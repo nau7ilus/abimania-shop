@@ -1,0 +1,10 @@
+services:
+  hugo-nginx:
+    command: ["nginx", "-g", "daemon off;"]
+    restart: unless-stopped
+    container_name: hugo-nginx
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - web

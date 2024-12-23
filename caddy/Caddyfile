@@ -17,7 +17,11 @@
 {$BASE_DOMAIN} {
 	{$TLS_CONFIG}
 	import log_common
-	respond "Hello, world!"
+	reverse_proxy hugo-nginx
+
+	route / {
+		redir https://{$PRETIX_SUBDOMAIN}.{$BASE_DOMAIN}
+	}
 }
 
 {$GF_SUBDOMAIN}.{$BASE_DOMAIN} {
