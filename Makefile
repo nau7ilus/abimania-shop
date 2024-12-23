@@ -86,3 +86,10 @@ rm-all:
 
 update-submodules:
 	git submodule foreach git pull origin main
+
+PRETIX_CRON_JOB=15,45 * * * * /usr/bin/docker exec pretix pretix cron
+pretix-addcron:
+	@{ crontab -l 2>/dev/null | grep -Fxq "$(PRETIX_CRON_JOB)" || { \
+		crontab -l 2>/dev/null; \
+		echo "$(PRETIX_CRON_JOB)"; \
+	}; } | crontab -
