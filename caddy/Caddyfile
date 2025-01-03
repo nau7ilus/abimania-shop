@@ -40,6 +40,9 @@
 	{$TLS_CONFIG}
 	import log_common
 
+	redir / /hgp/abimania 301
+	redir /hgp /hgp/abimania 301
+
 	handle {
 		reverse_proxy pretix {
 			header_up X-Forwarded-For {remote}
