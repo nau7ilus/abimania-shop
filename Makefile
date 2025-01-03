@@ -9,21 +9,31 @@ KEY_PEM_FILE := $(CERTS_DIR)/local.key.pem
 
 ARCH := $(shell uname -m)
 
-TEMPLATE_FILES := $(PWD)/pretix/config/pretix.template.cfg
-CFG_FILES := $(TEMPLATE_FILES:.template.cfg=.cfg)
-
 DOCKER := $(shell which docker 2>/dev/null)
 DOCKER_COMPOSE := $(shell which docker-compose 2>/dev/null)
 ifeq ($(DOCKER_COMPOSE),)
 	DOCKER_COMPOSE := $(DOCKER) compose
 endif
 
-ENVIRONMENT ?= production
-ENV_FILE = .env$(if $(findstring development,$(ENVIRONMENT)),.development,)
--include $(ENV_FILE)
-
 CADDY_BASE_DOMAIN ?= abimania.local
 DOMAIN_URL := https://$(CADDY_BASE_DOMAIN)
+
+ENVIRONMENT ?= production
+ENV_FILE = .env$(if $(findstring development,$(ENVIRONMENT)),.development,)
+include $(ENV_FILE)
+export $(shell sed '/^\#/d; s/=.*//' $(ENV_FILE)) 
+
+TEMPLATE_FILES := $(PWD)/pretix/config/pretix.template.cfg
+CFG_FILES := $(TEMPLATE_FILES:.template.cfg=.cfg)
+
+# Pretix Config
+config: $(CFG_FILES) ## Generate configuration files from templates
+	@echo "All configuration files have been generated."
+	@set -a; . $(ENV_FILE); set +a; echo "Environment variables loaded:";
+
+# Rule to generate .cfg from .template.cfg using envsubst
+$(PWD)/pretix/config/%.cfg: $(PWD)/pretix/config/%.template.cfg $(ENV_FILE)
+	@set -a; . $(ENV_FILE); set +a; envsubst < $< > $@
 
 dev: check-loki-socket $(CFG_FILES) ## Starte die Entwicklungsumgebung
 	MY_UID="$(shell id -u)" MY_GID="$(shell id -g)" \
@@ -90,14 +100,6 @@ pretix-addcron: ## Cron für pretix hinzufügen
 		crontab -l 2>/dev/null; \
 		echo "$(PRETIX_CRON_JOB)"; \
 	}; } | crontab -
-
-# Pretix Config
-config: $(CFG_FILES) ## Generiere Konfigurationsdateien aus Templates
-	@echo "Alle Konfigurationsdateien wurden generiert."
-
-$(PWD)/pretix/config/%.cfg: $(PWD)/pretix/config/%.template.cfg $(ENV_FILE)
-	@echo "Erstelle Konfigurationsdatei $@ aus Template $< mit envsubst..."
-	envsubst < $< > $@
 
 clean: ## Entferne ungenutzte Docker-Daten (Images, Container, Volumes)
 	$(DOCKER) system prune -a --force
