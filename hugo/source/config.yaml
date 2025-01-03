@@ -6,6 +6,7 @@ baseUrl: /
 params:
   abbrDateFmt: "Jan 2"
   author: "Brandmauerbrecher (Schul-AG)"
+  authorSite: https://cyber-hgp.de/
   brandIconFile: "images/brandIcon.svg"
   dateFmt: "2006-01-02"
   subtitle: "Description about Blog Author"
