@@ -71,8 +71,8 @@ install-ssl-certificates: ## Installiere lokale SSL-Zertifikate
 	@echo "-- Installiere mkcert ..."
 	mkcert -install
 	mkdir -p $(CERTS_DIR)
-	@echo "-- Erstelle und installiere lokale SSL-Zertifikate für Domain: $(DOMAIN) + *.$(DOMAIN) ..."
-	mkcert -cert-file $(CERT_PEM_FILE) -key-file $(KEY_PEM_FILE) "$(DOMAIN)" "*.$(DOMAIN)"
+	@echo "-- Erstelle und installiere lokale SSL-Zertifikate für Domain: $(CADDY_BASE_DOMAIN) + *.$(CADDY_BASE_DOMAIN) ..."
+	mkcert -cert-file $(CERT_PEM_FILE) -key-file $(KEY_PEM_FILE) "$(CADDY_BASE_DOMAIN)" "*.$(CADDY_BASE_DOMAIN)"
 	@echo "-- Fertig!"
 	@echo
 	@echo "- Jetzt kannst du ausführen: $(DOCKER_COMPOSE) up"
