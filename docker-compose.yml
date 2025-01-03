@@ -4,6 +4,7 @@ include:
   - ./loki/docker-compose.yml
   - ./hedgedoc/docker-compose.yml
   - ./pretix/docker-compose.yml
+  - ./hugo/docker-compose.yml
 
 networks:
   web:
