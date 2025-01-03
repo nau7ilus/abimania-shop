@@ -40,7 +40,7 @@ dev: check-loki-socket $(CFG_FILES) ## Starte die Entwicklungsumgebung
 	$(DOCKER_COMPOSE) --env-file $(ENV_FILE) \
 	-f docker-compose.dev.yml up
 
-down: load_env ## Stoppe und entferne alle Container 
+down: ## Stoppe und entferne alle Container 
 	@echo "Stoppe $(ENVIRONMENT)-Umgebung..."
 	@if [ "$(ENVIRONMENT)" = "development" ]; then \
 		$(DOCKER_COMPOSE) -f docker-compose.dev.yml down; \
