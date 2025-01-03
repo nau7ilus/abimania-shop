@@ -8,7 +8,7 @@ ifeq ($(DOCKER_COMPOSE),)
 	DOCKER_COMPOSE := $(DOCKER) compose
 endif
 
-DOMAIN ?= abimania.local
+DOMAIN ?= abimania2025.de
 DOMAIN_URL := https://$(DOMAIN)
 PWD := $(CURDIR)
 CERTS_DIR := $(PWD)/caddy/certs
@@ -16,7 +16,7 @@ CERT_PEM_FILE := $(CERTS_DIR)/local.cert.pem
 KEY_PEM_FILE := $(CERTS_DIR)/local.key.pem
 ARCH := $(shell uname -m)
 
-ENV_FILE ?= .env.development
+ENV_FILE ?= .env
 include $(ENV_FILE)
 export $(shell sed 's/=.*//' $(ENV_FILE))
 
@@ -32,6 +32,12 @@ config: $(CFG_FILES) ## Generiere Konfigurationsdateien aus Templates
 $(PWD)/pretix/config/%.cfg: $(PWD)/pretix/config/%.template.cfg $(ENV_FILE)
 	@echo "Erstelle Konfigurationsdatei $@ aus Template $< mit envsubst..."
 	envsubst < $< > $@
+up: check-loki-socket $(CFG_FILES) ## Starte Prod
+	MY_UID="$(shell id -u)" MY_GID="$(shell id -g)" \
+	$(DOCKER_COMPOSE) --env-file $(ENV_FILE) \
+		-f docker-compose.logging.yml \
+		-f docker-compose.yml	up -d
+
 
 dev: check-loki-socket $(CFG_FILES) ## Starte die Entwicklungsumgebung
 	MY_UID="$(shell id -u)" MY_GID="$(shell id -g)" \
@@ -39,7 +45,7 @@ dev: check-loki-socket $(CFG_FILES) ## Starte die Entwicklungsumgebung
 		-f docker-compose.dev.yml up
 
 down: ## Stoppe und entferne alle Container
-	$(DOCKER_COMPOSE) down
+	$(DOCKER_COMPOSE) -f docker-compose.logging.yml -f docker-compose.yml down
 
 logs: ## Zeige die Logs der Container
 	$(DOCKER_COMPOSE) logs -f
@@ -88,7 +94,7 @@ update-submodules:
 	git submodule foreach git pull origin main
 
 PRETIX_CRON_JOB=15,45 * * * * /usr/bin/docker exec pretix pretix cron
-pretix-addcron:
+pretix-addcron: ## Add pretix cron
 	@{ crontab -l 2>/dev/null | grep -Fxq "$(PRETIX_CRON_JOB)" || { \
 		crontab -l 2>/dev/null; \
 		echo "$(PRETIX_CRON_JOB)"; \

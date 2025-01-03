@@ -17,4 +17,4 @@ pretix/database/
 .hugo_build.lock
 hugo/source/public/
 
-musor/
+*.sql

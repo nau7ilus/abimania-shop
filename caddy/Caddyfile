@@ -17,7 +17,7 @@
 {$BASE_DOMAIN} {
 	{$TLS_CONFIG}
 	import log_common
-	reverse_proxy hugo-nginx
+	reverse_proxy hugo:6969
 
 	route / {
 		redir https://{$PRETIX_SUBDOMAIN}.{$BASE_DOMAIN}
@@ -39,6 +39,10 @@
 {$PRETIX_SUBDOMAIN}.{$BASE_DOMAIN} {
 	{$TLS_CONFIG}
 	import log_common
+
+	redir / /hgp/abimania 301
+	redir /hgp /hgp/abimania 301
+	redir /hgp/ /hgo/abimania 301
 
 	handle {
 		reverse_proxy pretix {

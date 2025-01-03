@@ -1,8 +1,11 @@
 services:
-  hugo-nginx:
-    command: ["nginx", "-g", "daemon off;"]
+  hugo:
     restart: unless-stopped
-    container_name: hugo-nginx
+    container_name: hugo
+    image: hugomods/hugo:latest
+    command: "hugo server -p 6969 --bind 0.0.0.0"
+    volumes:
+      - $PWD/hugo/source:/src
     build: 
       context: .
       dockerfile: Dockerfile
