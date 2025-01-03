@@ -92,7 +92,7 @@ rm-all: ## Lösche alle aktive Docker-Prozesse
 	docker rm -f $(shell docker ps -a -q)
 
 update-submodules: ## Installiere alle Git Submodules
-	git submodule foreach git pull origin main
+	git submodule update --init --recursive
 
 PRETIX_CRON_JOB=15,45 * * * * /usr/bin/docker exec pretix pretix cron
 pretix-addcron: ## Cron für pretix hinzufügen
