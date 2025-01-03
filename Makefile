@@ -29,7 +29,7 @@ CFG_FILES := $(TEMPLATE_FILES:.template.cfg=.cfg)
 # Pretix Config
 config: $(CFG_FILES) ## Generate configuration files from templates
 	@echo "All configuration files have been generated."
-	@set -a; . $(ENV_FILE); set +a; echo "Environment variables loaded:";
+	@set -a; . $(ENV_FILE); set +a;
 
 # Rule to generate .cfg from .template.cfg using envsubst
 $(PWD)/pretix/config/%.cfg: $(PWD)/pretix/config/%.template.cfg $(ENV_FILE)
