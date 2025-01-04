@@ -82,7 +82,7 @@ check-loki-socket: ## Überprüfe, ob der Loki Plugin Socket existiert
 restart-docker: ## Starte den Docker-Dienst neu
 	sudo systemctl restart docker
 
-install-ssl-certificates: ## Installiere lokale SSL-Zertifikate
+ssl: ## Installiere lokale SSL-Zertifikate
 	@echo "-- Installiere mkcert ..."
 	mkcert -install
 	mkdir -p $(CERTS_DIR)
@@ -90,7 +90,7 @@ install-ssl-certificates: ## Installiere lokale SSL-Zertifikate
 	mkcert -cert-file $(CERT_PEM_FILE) -key-file $(KEY_PEM_FILE) "$(CADDY_BASE_DOMAIN)" "*.$(CADDY_BASE_DOMAIN)"
 	@echo "-- Fertig!"
 	@echo
-	@echo "- Jetzt kannst du ausführen: $(DOCKER_COMPOSE) up"
+	@echo "- Jetzt kannst du ausführen: make dev"
 	@echo "- Öffne den Browser unter: $(DOMAIN_URL)"
 
 rm-all: ## Lösche alle aktive Docker-Prozesse
