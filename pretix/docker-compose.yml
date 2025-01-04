@@ -1,7 +1,9 @@
 services:
   pretix:
-    image: pretix/standalone:stable
     container_name: pretix
+    build:
+      dockerfile: Dockerfile
+      context: .
     restart: unless-stopped
     depends_on:
       - caddy
@@ -9,7 +11,8 @@ services:
       - pretix-redis
     volumes:
       - $PWD/pretix/data:/data
-      - $PWD/pretix/config:/etc/pretix
+      - $PWD/pretix/config/pretix.cfg:/etc/pretix/pretix.cfg
+      - $PWD/pretix/config/nginx.conf:/etc/nginx/nginx.conf
     networks:
       - pretix
       - web
