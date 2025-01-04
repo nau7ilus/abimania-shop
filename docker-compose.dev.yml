@@ -2,7 +2,6 @@ include:
   - ./caddy/docker-compose.yml
   - ./pretix/docker-compose.yml
   - ./hugo/docker-compose.yml
-  - ./loki/docker-compose.yml
 
 networks:
   web:
