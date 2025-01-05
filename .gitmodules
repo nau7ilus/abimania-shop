@@ -1,3 +1,6 @@
 [submodule "hugo/source/themes/smigle"]
 	path = hugo/source/themes/smigle
 	url = https://gitlab.com/ian-s-mcb/smigle-hugo-theme.git
+[submodule "pretix/plugins/pretix-abimania-theme"]
+	path = pretix/plugins/pretix-abimania-theme
+	url = https://github.com/nau7ilus/pretix-abimania-theme.git
