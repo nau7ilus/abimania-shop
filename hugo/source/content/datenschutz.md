@@ -64,7 +64,7 @@ Weitere Informationen zu Widerspruchs- und Beseitigungsmöglichkeiten gegenüber
 
 #### Ticketshop
 
-URL: https://tickets.abimania2025.de/
+URL: https://tickets.was-das-nashorn-sah.de/
 
 Der Ticketshop ist ein Dienst zum Verkauf von nicht-physischen Gütern (z.B. Eintrittskarten).
 
