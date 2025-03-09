@@ -26,7 +26,7 @@ Sie haben als betroffene Personen folgende Rechte:
 * Recht darauf, die Person betreffende personenbezogene Daten in einem strukturierten, gängigen und maschinenlesbaren Format zu erhalten (Recht auf Datenübertragbarkeit)
 * Recht aus Gründen, die sich aus ihrer besonderen Situation ergeben, der Datenverarbeitung zu widersprechen
 
-Bitte wenden Sie sich zur Wahrnehmung Ihrer Rechte an den Verantwortlichen unter `webmaster@abimania2025.de`.
+Bitte wenden Sie sich zur Wahrnehmung Ihrer Rechte an den Verantwortlichen unter `webmaster@was-das-nashorn-sah.de`.
 
 Darüber hinaus haben Sie das Recht, sich bei einer Aufsichtsbehörde ([Die Landesbeauftragte für den Datenschutz und für das Recht auf Akteneinsicht Brandenburg](https://www.bfdi.bund.de/SharedDocs/Adressen/DE/LfD/Brandenburg.html?nn=304054)) über die Verarbeitung zu beschweren.
 ### Erfassung allgemeiner Informationen
