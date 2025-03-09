@@ -35,6 +35,6 @@ Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wi
 
 ### Datenschutz
 
-Mehr Informationen dazu, wie Ihre Daten von uns verarbeitet werden, finden Sie unter https://abimania2025.de/datenschutz.
+Mehr Informationen dazu, wie Ihre Daten von uns verarbeitet werden, finden Sie unter https://was-das-nashorn-sah.de/datenschutz.
 
 Website Impressum erstellt durch impressum-generator.de von der Kanzlei Hasselbach 
