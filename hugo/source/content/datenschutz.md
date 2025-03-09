@@ -11,7 +11,7 @@ Filip Zelinskyi
 c/o Humboldt-Gymnasium Potsdam
 Heinrich-Mann-Allee 104 C
 14473 Potsdam
-webmaster@abimania2025.de
+webmaster@was-das-nashorn-sah.de
 ```
 
 Sollten Sie per E-Mail mit uns Kontakt aufnehmen, werden die mitgeteilten Daten von uns gespeichert, um Ihr Anliegen zu bearbeiten.
